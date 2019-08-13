@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Concept Design for the jquery product configurator</title>
+	<link rel="stylesheet" href="jquery.product-configurator.css" type="text/css">
+	<script src="demo/jquery.js"></script>
+	<style>
+		ul li a .thumbnail img {
+			background-color: #444;
+		}
+	</style>
+	<script>
+		$(document).ready(function(){
+			$('.main-categorie li').click(function(){
+				console.log("hi");
+				var object = $(this);
+				$('.main-categorie').animate({left: "-" + $('.main-categorie').parent().width() + "px"}, 300, function (){
+					$('#categorie-'+object.data("categorie")).css("left", $('.main-categorie').parent().width() + "px").animate({left: "0px"}, 300);
+				});
+			});
+		});
+		
+	</script>
+</head>
+<body style="overflow: hidden;">
+<div class="configurator">
+	<div class="preview">
+		<div class="preview-image">
+			
+		</div>
+	</div>
+	<div class="settings">
+		<div class="name">
+			Backpack
+		</div>
+		<div class="categories">
+			<ul class="main-categorie">
+				<li data-categorie="case">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						case
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="belt">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						belt
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="zipper">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						zipper
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+			</ul>
+			
+			<ul class="sub-categorie" id="categorie-case">
+				<li data-categorie="case">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						case
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="belt">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						belt
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="zipper">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						zipper
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+			</ul>
+			<ul class="sub-categorie" id="categorie-belt">
+				<li data-categorie="case">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						case
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="belt">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						belt
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="zipper">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						zipper
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+			</ul>
+			<ul class="sub-categorie" id="categorie-zipper">
+				<li data-categorie="case">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						case
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="belt">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						belt
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+				<li data-categorie="zipper">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+					<div class="name">
+						zipper
+					</div>
+					<div class="price">
+						10.99€
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="summary">
+			<div>Total</div>
+			<div>32.97€</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

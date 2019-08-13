@@ -1,0 +1,112 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+.configurator {
+	width: 100%;
+	height: 100%;
+	background-color: rgb(233,233,233);
+	display: flex;
+	position: relative;
+}
+.configurator .preview {
+	height: 100%;
+	flex: 2;
+}
+.configurator .preview .preview-image {
+	width: 50%;
+	height: 50%;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #444;
+}
+.configurator .settings {
+	position: relative;
+	height: 100%;
+	flex: 1;
+	background-color: #FBFBFB;
+	-webkit-box-shadow: -3px 0px 29px 6px rgba(0,0,0,0.35);
+	-moz-box-shadow: -3px 0px 29px 6px rgba(0,0,0,0.35);
+	box-shadow: -3px 0px 29px 6px rgba(0,0,0,0.35);
+	font-family: sans-serif;
+}
+.configurator .settings > .name {
+	margin: 2% 0 0 0;
+	color: #333;
+	font-size: 3em;
+	font-family: sans-serif;
+	text-align: center;
+}
+.configurator .settings .categories {
+	position: relative;
+	height: 70%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+.configurator .settings .categories ul {
+	height: 100%;
+	width: 100%;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	left:0;
+}
+.configurator .settings .categories .sub-categorie {
+	left: 100%;
+}
+.configurator .settings .categories ul li {
+	width: 100%;
+	min-height: 100px;
+	height: 100px;
+	background-color: rgb(233,233,233);
+	margin: 1% 0;
+	color: #444;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: .3s ease;
+	padding: 0 10%;
+	box-sizing: border-box;
+}
+.configurator .settings .categories ul li:hover {
+	background-color: rgb(210,210,210);
+}
+.configurator .settings .categories ul li .thumbnail {
+	flex: 1;
+	height: 100%;
+}
+.configurator .settings .categories ul li .thumbnail img {
+	max-height: 100%;
+	max-width: 100%;
+	height: 100%;
+	width: auto;
+}
+.configurator .settings .categories ul li .name {
+	flex: 3;
+}
+.configurator .settings .categories ul li .price {
+	flex: 1;
+}
+.configurator .settings .summary {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	display: flex;
+}
+.configurator .settings .summary div {
+	flex: 1;
+	padding: 1%;
+}
+.configurator .settings .summary div:first-child {
+	text-align: right;
+}
+.configurator .settings .summary div:last-child {
+	text-align: left;
+}
