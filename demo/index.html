@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Concept Design for the jquery product configurator</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="../jquery.product-configurator.css" type="text/css">
+	<script src="jquery.js"></script>
+	<script src="../jquery.product-configurator.js"></script>
+	
+	<script>
+	$(document).ready(function(){
+		var options = {
+			"name": "Backpack",
+			"currency": "&euro;",
+			"buyDestinationUrl": "test.php",
+			"categories": [
+				{
+					"name": "case",
+					"thumbnail": "img/thumbnail-case.png",
+					"items": [
+						{
+							"name": "default",
+							"price": 10.99,
+							"image": "img/thumbnail-case.png",
+							"default": true
+						},
+						{
+							"name": "red",
+							"price": 14.99,
+							"image": "img/case/case-red.png"
+						},
+						{
+							"name": "green",
+							"price": 14.99,
+							"image": "img/case/case-green.png"
+						},
+						{
+							"name": "blue",
+							"price": 14.99,
+							"image": "img/case/case-blue.png"
+						}
+					]
+				},
+				{
+					"name": "belt",
+					"thumbnail": "img/belt/belt-default.png",
+					"items": [
+						{
+							"name": "default",
+							"price": 10.99,
+							"image": "img/belt/belt-default.png",
+							"default": true
+						},
+						{
+							"name": "red",
+							"price": 14.99,
+							"image": "img/belt/belt-red.png"
+						},
+						{
+							"name": "green",
+							"price": 14.99,
+							"image": "img/belt/belt-green.png"
+						},
+						{
+							"name": "blue",
+							"price": 14.99,
+							"image": "img/belt/belt-blue.png"
+						}
+					]
+				},
+				{
+					"name": "handle",
+					"thumbnail": "img/handle/handle-default.png",
+					"items": [
+						{
+							"name": "default",
+							"price": 10.99,
+							"image": "img/handle/handle-default.png",
+							"default": true
+						},
+						{
+							"name": "red",
+							"price": 14.99,
+							"image": "img/handle/handle-red.png"
+						},
+						{
+							"name": "green",
+							"price": 14.99,
+							"image": "img/handle/handle-green.png"
+						},
+						{
+							"name": "blue",
+							"price": 14.99,
+							"image": "img/handle/handle-blue.png"
+						}
+					]
+				}
+			]
+		};
+		$('body').productConfigurator(options);
+	});
+	</script>
+</head>
+<body style="overflow: hidden;">
+	
+</body>
+</html>
