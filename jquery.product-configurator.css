@@ -1,3 +1,36 @@
+@import "https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css";
+/* HAMBURGER WITH ANIMATION */
+.hamburg {
+	position: relative;
+	left: -5px;
+}
+.hamburg .line { 
+   position: absolute; 
+   left:10px;
+   height: 4px; width: 40px; 
+   background: #444; border-radius: 2px;
+   display: block; 
+   transition: 0.5s; 
+   transform-origin: center; 
+}
+
+.hamburg .line:nth-child(1) { top: 12px; }
+.hamburg .line:nth-child(2) { top: 24px; }
+.hamburg .line:nth-child(3) { top: 36px; }
+
+.active.hamburg .line:nth-child(1){
+   transform: translateY(12px) rotate(-45deg);
+}
+
+.active.hamburg .line:nth-child(2){
+   opacity:0;
+}
+
+.active.hamburg .line:nth-child(3){
+   transform: translateY(-12px) rotate(45deg);
+}
+
+
 body, html {
 	margin: 0;
 	padding: 0;
@@ -11,18 +44,133 @@ body, html {
 	display: flex;
 	position: relative;
 }
-.configurator .preview {
-	height: 100%;
-	flex: 2;
+
+.configurator .mobile-config-button {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 50;
+	background-color: rgb(233,233,233);
+	color: #444;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: .3s ease;
+	box-sizing: border-box;
+	font-size: 3em;
+	display: none;
+	text-align: center;
+	width: 50px;
+	height: 50px;
 }
-.configurator .preview .preview-image {
-	width: 50%;
-	height: 50%;
+.configurator .mobile-config-button:hover {
+	background-color: rgb(210,210,210);
+}
+
+
+.configurator .loading, .configurator .buy {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	display: none;
+	z-index: 100;
+}
+.configurator .buy {
+	background-color:rgba(0,0,0, 0.7);
+}
+.configurator .buy .inner {
 	position: relative;
+	width:50%;
+	height: 50%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #444;
+	background-color:#FFF;
+	border-radius: 5px;
+	display: flex;
+	padding: 1%;
+	box-sizing: border-box;
+}
+.configurator .buy .inner .preview {
+	flex: 1;
+	height: 100%;
+}
+.configurator .buy .inner .preview .preview-image {
+	display: grid;
+	width: 100%;
+	height: 100%;
+}
+.configurator .buy .inner .preview .preview-image img {
+	object-fit: contain;
+	max-height: 100%;
+	max-width: 100%;
+	grid-column: 1;
+	grid-row: 1;
+}
+.configurator .buy .inner .info {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	font-family: sans-serif;
+}
+.configurator .buy .inner .info .price {
+	display: flex;
+}
+.configurator .buy .inner .info .price div {
+	padding: 0 10px;
+}
+.configurator .buy .inner .info a {
+	color:rgba(255,199,6,1.00);
+	text-decoration: none;
+}
+.configurator .buy .inner .info a:hover {
+	text-decoration: underline;	
+}
+.configurator .buy .inner .info .buy-check {
+	display: flex;
+	height: 80px;
+	width:100%;
+}
+.configurator .buy .inner .info .buy-check div {
+	flex: 1;
+	height: 100%;
+	background-color: rgb(233,233,233);
+	margin: 1% 0;
+	color: #444;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: .3s ease;
+	box-sizing: border-box;
+}
+.configurator .buy .inner .info .buy-check div:hover {
+	background-color: rgb(210,210,210);
+}
+.configurator .preview {
+	height: 100%;
+	flex: 2;
+	position: relative;
+}
+.configurator > .preview .preview-image {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: grid;
+	max-width: 100%;
+	max-height: 100%;
+}
+.configurator > .preview .preview-image img {
+	grid-column: 1;
+	grid-row: 1;
+	top:0;
+	left:0;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
 }
 .configurator .settings {
 	position: relative;
@@ -34,18 +182,39 @@ body, html {
 	box-shadow: -3px 0px 29px 6px rgba(0,0,0,0.35);
 	font-family: sans-serif;
 }
+
+
+
 .configurator .settings > .name {
-	margin: 2% 0 0 0;
+	padding: 2% 0 0 0;
 	color: #333;
 	font-size: 3em;
 	font-family: sans-serif;
 	text-align: center;
+	position: relative;
+}
+.configurator .settings > .name > .back {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgb(233,233,233);
+	color: #444;
+	cursor: auto;
+	transition: .3s ease;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+}
+.configurator .settings > .name > .back:hover {
+	background-color: rgb(210,210,210);
 }
 .configurator .settings .categories {
 	position: relative;
 	height: 70%;
 	overflow-x: hidden;
-	overflow-y: hidden;
+	overflow-y: auto;
 }
 .configurator .settings .categories ul {
 	height: 100%;
@@ -57,7 +226,11 @@ body, html {
 	top: 0;
 	left:0;
 }
-.configurator .settings .categories .sub-categorie {
+.configurator .settings .categories .main-category li .enter {
+	flex: 1;
+	text-align: right;
+}
+.configurator .settings .categories .sub-category {
 	left: 100%;
 }
 .configurator .settings .categories ul li {
@@ -75,38 +248,99 @@ body, html {
 	padding: 0 10%;
 	box-sizing: border-box;
 }
+.configurator .settings .categories ul li:first-child {
+	margin-top:0!important;
+}
 .configurator .settings .categories ul li:hover {
 	background-color: rgb(210,210,210);
 }
 .configurator .settings .categories ul li .thumbnail {
 	flex: 1;
 	height: 100%;
+	display: flex;
 }
 .configurator .settings .categories ul li .thumbnail img {
 	max-height: 100%;
 	max-width: 100%;
-	height: 100%;
-	width: auto;
+	object-fit: contain;
 }
 .configurator .settings .categories ul li .name {
-	flex: 3;
+	flex: 4;
 }
 .configurator .settings .categories ul li .price {
 	flex: 1;
+	font-weight: bold;
 }
 .configurator .settings .summary {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
+	background-color: #FBFBFB;
+}
+.configurator .settings .summary .price {
+	width: 100%;
 	display: flex;
 }
-.configurator .settings .summary div {
+.configurator .settings .summary .price div {
 	flex: 1;
 	padding: 1%;
+	font-size:1.35em;
 }
-.configurator .settings .summary div:first-child {
+.configurator .settings .summary .price div:first-child {
 	text-align: right;
+	align-self: center;
 }
-.configurator .settings .summary div:last-child {
+.configurator .settings .summary .price div:last-child {
 	text-align: left;
+}
+.configurator .settings .summary .buy-button {
+	width: 100%;
+	min-height: 80px;
+	height: 80px;
+	background-color: rgb(233,233,233);
+	margin: 1% 0;
+	color: #444;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: .3s ease;
+	box-sizing: border-box;
+}
+.configurator .settings .summary .buy-button:hover {
+	background-color: rgb(210,210,210);
+}
+.price-anim {
+	animation: grow 0.4s;
+}
+@keyframes grow {
+	0% {
+		font-size: 1.35em;
+	}
+	50% {
+		font-size: 1.65em;
+	}
+	100% {
+		font-size: 1.35em;
+	}
+}
+
+
+@media(max-width: 920px){
+	.configurator .mobile-config-button {
+		display: block;
+	}
+	.configurator .settings {
+		transform: translateX(100%);
+		transition: .3s ease;
+		position: absolute;
+		right: 0;
+		width: 100%;
+	}
+	.configurator .settings.open {
+		transform: translateX(0%);
+	}
+	.configurator .buy .inner {
+		width: 100%;
+	}
 }

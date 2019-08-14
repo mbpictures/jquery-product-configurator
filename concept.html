@@ -2,21 +2,172 @@
 <html>
 <head>
 	<title>Concept Design for the jquery product configurator</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="jquery.product-configurator.css" type="text/css">
 	<script src="demo/jquery.js"></script>
-	<style>
-		ul li a .thumbnail img {
-			background-color: #444;
-		}
-	</style>
 	<script>
+	var currentSelection = {
+		"case": "case-default",
+		"belt": "belt-default",
+		"handle": "handle-default"
+	};
+	var items = {
+		"case": {
+			"name": "case",
+			"items": {
+				"case-default": {
+					"name": "default",
+					"price": 10.99,
+					"url": "demo/img/thumbnail-case.png"
+				},
+				"case-red": {
+					"name": "red",
+					"price": 14.99,
+					"url": "demo/img/case/case-red.png"
+				},
+				"case-green": {
+					"name": "green",
+					"price": 14.99,
+					"url": "demo/img/case/case-green.png"
+				},
+				"case-blue": {
+					"name": "blue",
+					"price": 14.99,
+					"url": "demo/img/case/case-blue.png"
+				}
+			}
+		},
+		"belt": {
+			"name": "belt",
+			"items": {
+				"belt-default": {
+					"name": "default",
+					"price": 10.99,
+					"url": "demo/img/belt/belt-default.png"
+				},
+				"belt-red": {
+					"name": "red",
+					"price": 14.99,
+					"url": "demo/img/belt/belt-red.png"
+				},
+				"belt-green": {
+					"name": "green",
+					"price": 14.99,
+					"url": "demo/img/belt/belt-green.png"
+				},
+				"belt-blue": {
+					"name": "blue",
+					"price": 14.99,
+					"url": "demo/img/belt/belt-blue.png"
+				}
+			}
+		},
+		"handle": {
+			"name": "handle",
+			"items": {
+				"handle-default": {
+					"name": "default",
+					"price": 10.99,
+					"url": "demo/img/handle/handle-default.png"
+				},
+				"handle-red": {
+					"name": "red",
+					"price": 14.99,
+					"url": "demo/img/handle/handle-red.png"
+				},
+				"handle-green": {
+					"name": "green",
+					"price": 14.99,
+					"url": "demo/img/handle/handle-green.png"
+				},
+				"handle-blue": {
+					"name": "blue",
+					"price": 14.99,
+					"url": "demo/img/handle/handle-blue.png"
+				}
+			}
+		}
+	};
 		$(document).ready(function(){
-			$('.main-categorie li').click(function(){
-				console.log("hi");
+			var openedSub = "";
+			$('.main-category li').click(function(){
 				var object = $(this);
-				$('.main-categorie').animate({left: "-" + $('.main-categorie').parent().width() + "px"}, 300, function (){
-					$('#categorie-'+object.data("categorie")).css("left", $('.main-categorie').parent().width() + "px").animate({left: "0px"}, 300);
+				$('.main-category').animate({left: "-" + $('.main-category').parent().width() + "px"}, 300, function (){
+					$('#category-'+object.data("category")).css("left", $('.main-category').parent().width() + "px").animate({left: "0px"}, 300);
+					$('.settings .back').animate({opacity: "1"}, 300).css("cursor", "pointer");
+					openedSub = object.data("category");
 				});
+				
+			});
+			$('.settings .back').click(function(){
+				if($(this).css("opacity") == 0) return;
+				$('#category-'+openedSub).animate({left: $('.main-category').parent().width() + "px"}, 300, function (){
+					$('.main-category').css("left", "-" + $('.main-category').parent().width() + "px").animate({left: "0"}, 300);
+					$('.settings .back').animate({opacity: "0"}, 300).css("cursor", "auto");
+					openedSub = "none";
+				});
+			});
+			
+			$('.sub-category li').click(function(){
+				var parentCat = $(this).parent().data("cat");
+				var itemUrl = items[$(this).parent().data("cat")].items[$(this).data("item")].url;
+				var name = items[$(this).parent().data("cat")].items[$(this).data("item")].name;
+				var price = items[$(this).parent().data("cat")].items[$(this).data("item")].price;
+				$('.preview-' + $(this).parent().data("cat")).attr("src", itemUrl);
+				$('.main-category li').each(function () {
+					if($(this).data("category") !== parentCat) return;
+					$(this).find("img").attr("src", itemUrl);
+					$(this).find(".name div:last-child").html(name);
+					$(this).find(".price").html(price + "&euro;")
+				});
+				currentSelection[$(this).parent().data("cat")] = $(this).data("item");
+				$(".summary .price div:last-child").removeClass("price-anim");
+				updateTotalPrice();
+			});
+			
+			$('.width-as-height').each(function(){
+				$(this).css("width", $(this).css("height"));
+			});
+			
+			function updateTotalPrice() {
+				var price = 0;
+				jQuery.each(currentSelection, function(i, val){
+					price += items[i].items[val].price;
+				});
+				
+				$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + "&euro;");
+				var el     = $(".summary .price div:last-child"),  
+					 newone = el.clone(true).addClass("price-anim");
+
+				 el.before(newone);
+
+				 el.remove();
+			}
+			
+			
+			
+			//buy
+			$('.buy').click(function (e){
+				if(e.target.getAttribute("class") === "buy"){
+					$(this).fadeOut(500);
+				}
+			});
+			$('.buy-check .accept').click(function(){
+				console.log("AJAX: " + JSON.stringify(currentSelection));
+			});
+			$('.buy-check .decline').click(function(){
+				$('.buy').fadeOut(500);
+			});
+			
+			$('.buy-button').click(function(){
+				$('.buy').fadeIn(500);
+			});
+			
+			
+			$('.mobile-config-button').click(function (){
+				$('.configurator .settings').toggleClass("open");
+				$(this).find(".hamburg").toggleClass("active");
 			});
 		});
 		
@@ -24,137 +175,216 @@
 </head>
 <body style="overflow: hidden;">
 <div class="configurator">
+	<div class="loading"></div>
+	<div class="buy">
+		<div class="inner">
+			<div class="preview">
+				<div class="preview-image">
+					<img src="demo/img/thumbnail-case.png" class="preview-case">
+					<img src="demo/img/belt/belt-default.png" class="preview-belt">
+					<img src="demo/img/handle/handle-default.png" class="preview-handle">
+				</div>
+			</div>
+			<div class="info">
+				<h1>Buy</h1>
+				<div class="price">
+					<div>Total</div>
+					<div>31.99&euro;</div>
+				</div>
+				<div class="buy-check">
+					<div class="accept">Buy</div>
+					<div class="decline">Not now</div>
+				</div>
+				<p>
+					With buying this product you accept our <a href="#">Privacies</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="mobile-config-button">
+		<div class="hamburg">
+			<span class="line"></span>
+			<span class="line"></span>
+			<span class="line"></span>
+		</div>
+	</div>
+	
 	<div class="preview">
 		<div class="preview-image">
-			
+			<img src="demo/img/thumbnail-case.png" class="preview-case">
+			<img src="demo/img/belt/belt-default.png" class="preview-belt">
+			<img src="demo/img/handle/handle-default.png" class="preview-handle">
 		</div>
 	</div>
 	<div class="settings">
 		<div class="name">
+			<div class="back width-as-height" data-submenu="none"><i class="icon ion-ios-arrow-back"></i></div>
 			Backpack
 		</div>
 		<div class="categories">
-			<ul class="main-categorie">
-				<li data-categorie="case">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+			<ul class="main-category">
+				<li data-category="case">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.png"></div>
 					<div class="name">
-						case
+						<div>case</div>
+						<div>default</div>
 					</div>
 					<div class="price">
-						10.99€
+						10.99&euro;
+					</div>
+					<div class="enter">
+						<i class="icon ion-ios-arrow-forward"></i>
 					</div>
 				</li>
-				<li data-categorie="belt">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+				<li data-category="belt">
+					<div class="thumbnail"><img src="demo/img/belt/belt-default.png"></div>
 					<div class="name">
-						belt
+						<div>belt</div>
+						<div>default</div>
 					</div>
 					<div class="price">
-						10.99€
+						10.99&euro;
+					</div>
+					<div class="enter">
+						<i class="icon ion-ios-arrow-forward"></i>
 					</div>
 				</li>
-				<li data-categorie="zipper">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+				<li data-category="handle">
+					<div class="thumbnail"><img src="demo/img/handle/handle-default.png"></div>
 					<div class="name">
-						zipper
+						<div>handle</div>
+						<div>default</div>
 					</div>
 					<div class="price">
-						10.99€
+						10.99&euro;
 					</div>
-				</li>
-			</ul>
-			
-			<ul class="sub-categorie" id="categorie-case">
-				<li data-categorie="case">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
-					<div class="name">
-						case
-					</div>
-					<div class="price">
-						10.99€
-					</div>
-				</li>
-				<li data-categorie="belt">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
-					<div class="name">
-						belt
-					</div>
-					<div class="price">
-						10.99€
-					</div>
-				</li>
-				<li data-categorie="zipper">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
-					<div class="name">
-						zipper
-					</div>
-					<div class="price">
-						10.99€
+					<div class="enter">
+						<i class="icon ion-ios-arrow-forward"></i>
 					</div>
 				</li>
 			</ul>
-			<ul class="sub-categorie" id="categorie-belt">
-				<li data-categorie="case">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+			<ul class="sub-category" id="category-case" data-cat="case">
+				<li data-item="case-default">
+					<div class="thumbnail"><img src="demo/img/thumbnail-case.png"></div>
 					<div class="name">
-						case
+						default
 					</div>
 					<div class="price">
-						10.99€
+						10.99&euro;
 					</div>
 				</li>
-				<li data-categorie="belt">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+				<li data-item="case-red">
+					<div class="thumbnail"><img src="demo/img/case/case-red.png"></div>
 					<div class="name">
-						belt
+						red
 					</div>
 					<div class="price">
-						10.99€
+						14.99&euro;
 					</div>
 				</li>
-				<li data-categorie="zipper">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+				<li data-item="case-green">
+					<div class="thumbnail"><img src="demo/img/case/case-green.png"></div>
 					<div class="name">
-						zipper
+						green
 					</div>
 					<div class="price">
-						10.99€
+						14.99&euro;
+					</div>
+				</li>
+				<li data-item="case-blue">
+					<div class="thumbnail"><img src="demo/img/case/case-blue.png"></div>
+					<div class="name">
+						blue
+					</div>
+					<div class="price">
+						14.99&euro;
 					</div>
 				</li>
 			</ul>
-			<ul class="sub-categorie" id="categorie-zipper">
-				<li data-categorie="case">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+			<ul class="sub-category" id="category-belt" data-cat="belt">
+				<li data-item="belt-default">
+					<div class="thumbnail"><img src="demo/img/belt/belt-default.png"></div>
 					<div class="name">
-						case
+						default
 					</div>
 					<div class="price">
-						10.99€
+						10.99&euro;
 					</div>
 				</li>
-				<li data-categorie="belt">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+				<li data-item="belt-red">
+					<div class="thumbnail"><img src="demo/img/belt/belt-red.png"></div>
 					<div class="name">
-						belt
+						red
 					</div>
 					<div class="price">
-						10.99€
+						14.99&euro;
 					</div>
 				</li>
-				<li data-categorie="zipper">
-					<div class="thumbnail"><img src="demo/img/thumbnail-case.jpg"></div>
+				<li data-item="belt-green">
+					<div class="thumbnail"><img src="demo/img/belt/belt-green.png"></div>
 					<div class="name">
-						zipper
+						green
 					</div>
 					<div class="price">
-						10.99€
+						14.99&euro;
+					</div>
+				</li>
+				<li data-item="belt-blue">
+					<div class="thumbnail"><img src="demo/img/belt/belt-blue.png"></div>
+					<div class="name">
+						blue
+					</div>
+					<div class="price">
+						14.99&euro;
+					</div>
+				</li>
+			</ul>
+			<ul class="sub-category" id="category-handle" data-cat="handle">
+				<li data-item="handle-default">
+					<div class="thumbnail"><img src="demo/img/handle/handle-default.png"></div>
+					<div class="name">
+						default
+					</div>
+					<div class="price">
+						10.99&euro;
+					</div>
+				</li>
+				<li data-item="handle-red">
+					<div class="thumbnail"><img src="demo/img/handle/handle-red.png"></div>
+					<div class="name">
+						red
+					</div>
+					<div class="price">
+						14.99&euro;
+					</div>
+				</li>
+				<li data-item="handle-green">
+					<div class="thumbnail"><img src="demo/img/handle/handle-green.png"></div>
+					<div class="name">
+						green
+					</div>
+					<div class="price">
+						14.99&euro;
+					</div>
+				</li>
+				<li data-item="handle-blue">
+					<div class="thumbnail"><img src="demo/img/handle/handle-blue.png"></div>
+					<div class="name">
+						blue
+					</div>
+					<div class="price">
+						14.99&euro;
 					</div>
 				</li>
 			</ul>
 		</div>
 		<div class="summary">
-			<div>Total</div>
-			<div>32.97€</div>
+			<div class="price">
+				<div>Total</div>
+				<div>32.97&euro;</div>
+			</div>
+			<div class="buy-button">Buy</div>
 		</div>
 	</div>
 </div>
