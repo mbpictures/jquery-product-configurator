@@ -17,6 +17,12 @@
 				summaryDiv = $("<div></div>").addClass("summary"),
 				buyBtn = $("<div></div>").addClass("buy-button").html("Buy");
 			
+			//mobile button
+			mobileConfigButtonDiv.click(function(){
+				$('.configurator .settings').toggleClass("open");
+				$(this).find(".hamburg").toggleClass("active");
+			});
+			
 			//settings top bar
 			var nameDiv = $("<div></div>").addClass("name");
 			var backDiv = $("<div></div>").addClass("back width-as-height").attr('data-submenu', "none").html('<i class="icon ion-ios-arrow-back"></i>');
@@ -81,6 +87,7 @@
 					subCategoryList.append(subCategoryEntry);
 					
 					subCategoryEntry.click(function(){
+						$('.preview-' + value.name).attr("src", value2.image);
 						$('.main-category li').each(function () {
 							if($(this).data("category") !== value.name){ return; }
 							$(this).find("img").attr("src", value2.image);
