@@ -127,7 +127,8 @@
 				mainCategoryEntry.find(".thumbnail").append(mainImg); 
 				
 				// build preview image
-				$(previewImageDiv).append("<img src='"+defaultItem.val.image+"' class='preview-"+value.name+"'>");
+				if(defaultItem.val.image !== undefined) $(previewImageDiv).append("<img src='"+defaultItem.val.image+"' class='preview-"+value.name+"'>");
+				
 				
 				//eventHandler for mainCategory
 				mainCategoryEntry.click(function(){
