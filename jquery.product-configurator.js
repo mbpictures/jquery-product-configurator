@@ -4,6 +4,8 @@
 	 	
 		var settings = $.extend( {}, $.fn.productConfigurator.defaults, options );
 		
+		$.fn.productConfigurator.internal.settings = settings;
+		
 		return this.each(function() {
 			//init all main static elements
 			var configuratorDiv = $("<div></div>").addClass("configurator"), 
@@ -39,7 +41,7 @@
 			});
 			
 			//settings summary
-			summaryDiv.append('<div class="price"><div>Total</div><div></div></div>').append(buyBtn);
+			summaryDiv.append('<div class="price"><div>'+settings.localization.total+'</div><div></div></div>').append(buyBtn);
 			buyBtn.click(function(){
 				$('.buy').fadeIn(500);
 			});
@@ -47,9 +49,9 @@
 			
 			//buy popup
 			var buyInfoDiv = $("<div></div>").addClass("info"), buyCheckDiv = $("<div></div>").addClass("buy-check");
-			var buyAcceptBtn = $("<div></div>").addClass("accept").html("Buy"), buyDeclineBtn = $("<div></div>").addClass("decline").html("Not now"); 
+			var buyAcceptBtn = $("<div></div>").addClass("accept").html(settings.localization.buy), buyDeclineBtn = $("<div></div>").addClass("decline").html(settings.localization.decline); 
 			buyCheckDiv.append(buyAcceptBtn).append(buyDeclineBtn);
-			buyInfoDiv.append("<h1>Buy</h1>").append('<div class="price"><div>Total</div><div>31.99&euro;</div></div>').append(buyCheckDiv).append('With buying this product you accept our <a href="#">Privacies</a>');
+			buyInfoDiv.append("<h1>"+settings.localization.buy+"</h1>").append('<div class="price"><div>'+settings.localization.total+'</div><div></div></div>').append(buyCheckDiv).append("<p>"+settings.localization.privacy+"</p>");
 			buyAcceptBtn.click(function(){
 				//translate internal representation of the current selection (as ids) in a more useful one
 				var data = {};
@@ -154,9 +156,15 @@
 		"name": undefined,
 		"buyDestinationUrl": undefined,
 		"currency": "&euro;",
-		"categories": []		
+		"categories": [],
+		"localization": {
+			"buy": "Buy",
+			"decline": "Not now",
+			"privacy": "With buying this product you accept our <a href='#'>Privacies</a>",
+			"total": "Total"
+		}
 	};
-	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined};
+	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "settings": undefined};
 	
 	$.fn.productConfigurator.redirectPost = function(location, data){
         var form = '';
@@ -172,7 +180,7 @@
 			price += $.fn.productConfigurator.internal.categories[i].items[val].price;
 		});
 				
-		$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + "&euro;");
+		$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + $.fn.productConfigurator.internal.settings.currency);
 		var el     = $(".summary .price div:last-child"),  
 			newone = el.clone(true).addClass("price-anim");
 
