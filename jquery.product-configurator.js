@@ -7,6 +7,12 @@
 		$.fn.productConfigurator.internal.currency = settings.currency;
 		
 		return this.each(function() {
+			// loading screen! at first, so it gets displayed before the other stuff loads
+			if(settings.loading){
+				var loadingScreen = $("<div></div>").addClass("loading").html(settings.loadingHtml);
+				$(this).append(loadingScreen);
+			}
+			
 			//init all main static elements
 			var configuratorDiv = $("<div></div>").addClass("configurator"), 
 				buyDiv = $("<div></div>").addClass("buy"), buyInnerDiv = $("<div></div>").addClass("inner"),
@@ -78,13 +84,16 @@
 				jQuery.each(value.items, function(index2, value2){
 					if(value2.default){ defaultItem.val = value2; defaultItem.index = index2; } //assign default item of category
 					var subCategoryEntry = $("<li></li>").attr("data-item", value2.name);
-					subCategoryEntry.empty().html('<div class="thumbnail"><img src="'+value2.image+'"></div>'+
+					subCategoryEntry.empty().html('<div class="thumbnail"></div>'+
 							'<div class="name">'+
 								value2.name+
 							'</div>'+
 							'<div class="price">'+
 								value2.price+settings.currency+
 							'</div>');
+					
+					var subImg = value2.image !== undefined ? $("<img>").attr("src", value2.image) : "";
+					subCategoryEntry.find(".thumbnail").append(subImg);
 					
 					subCategoryList.append(subCategoryEntry);
 					
@@ -102,7 +111,7 @@
 					});
 				});
 				
-				mainCategoryEntry.html('<div class="thumbnail"><img src="'+defaultItem.val.image+'"></div>'+
+				mainCategoryEntry.html('<div class="thumbnail"></div>'+
 					'<div class="name">'+
 						'<div>'+value.name+'</div>'+
 						'<div>'+defaultItem.val.name+'</div>'+
@@ -113,6 +122,9 @@
 					'<div class="enter">'+
 						'<i class="icon ion-ios-arrow-forward"></i>'+
 					'</div>'); //build list item for main-category list
+				
+				var mainImg = defaultItem.val.image !== undefined ? $("<img>").attr("src", defaultItem.val.image) : "";
+				mainCategoryEntry.find(".thumbnail").append(mainImg); 
 				
 				// build preview image
 				$(previewImageDiv).append("<img src='"+defaultItem.val.image+"' class='preview-"+value.name+"'>");
@@ -150,6 +162,10 @@
 				height: backDiv.css("height")
 			});
 			
+			if(settings.loading){
+				loadingScreen.fadeOut(400);
+			}
+			
 			$.fn.productConfigurator.internal.categories = settings.categories;
 			$.fn.productConfigurator.updateTotalPrice();
 		});
@@ -166,7 +182,9 @@
 			"decline": "Not now",
 			"privacy": "With buying this product you accept our <a href='#'>Privacies</a>",
 			"total": "Total"
-		}
+		},
+		"loading": false,
+		"loadingHtml": "<h1>Loading</h1><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div>"
 	};
 	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": undefined};
 	
@@ -184,7 +202,7 @@
 			price += $.fn.productConfigurator.internal.categories[i].items[val].price;
 		});
 				
-		$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + $.fn.productConfigurator.internal.currency);
+		$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price.toPrecision(4) + $.fn.productConfigurator.internal.currency);
 		var el     = $(".summary .price div:last-child"),  
 			newone = el.clone(true).addClass("price-anim");
 
