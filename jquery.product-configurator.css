@@ -2,11 +2,15 @@
 /* HAMBURGER WITH ANIMATION */
 .hamburg {
 	position: relative;
-	left: -5px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	height: 28px;
+	width: 40px;
 }
 .hamburg .line { 
    position: absolute; 
-   left:10px;
+   left:0;
    height: 4px; width: 40px; 
    background: #444; border-radius: 2px;
    display: block; 
@@ -14,9 +18,9 @@
    transform-origin: center; 
 }
 
-.hamburg .line:nth-child(1) { top: 12px; }
-.hamburg .line:nth-child(2) { top: 24px; }
-.hamburg .line:nth-child(3) { top: 36px; }
+.hamburg .line:nth-child(1) { top: 0; }
+.hamburg .line:nth-child(2) { top: 12px; }
+.hamburg .line:nth-child(3) { top: 24px; }
 
 .active.hamburg .line:nth-child(1){
    transform: translateY(12px) rotate(-45deg);

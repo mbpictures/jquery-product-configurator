@@ -4,7 +4,7 @@
 	 	
 		var settings = $.extend( {}, $.fn.productConfigurator.defaults, options );
 		
-		$.fn.productConfigurator.internal.settings = settings;
+		$.fn.productConfigurator.internal.currency = settings.currency;
 		
 		return this.each(function() {
 			//init all main static elements
@@ -145,6 +145,10 @@
 			$(this).append(configuratorDiv);
 			
 			backDiv.css("width", backDiv.css("height"));
+			mobileConfigButtonDiv.css({
+				width: backDiv.css("height"),
+				height: backDiv.css("height")
+			});
 			
 			$.fn.productConfigurator.internal.categories = settings.categories;
 			$.fn.productConfigurator.updateTotalPrice();
@@ -164,7 +168,7 @@
 			"total": "Total"
 		}
 	};
-	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "settings": undefined};
+	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": undefined};
 	
 	$.fn.productConfigurator.redirectPost = function(location, data){
         var form = '';
@@ -180,7 +184,7 @@
 			price += $.fn.productConfigurator.internal.categories[i].items[val].price;
 		});
 				
-		$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + $.fn.productConfigurator.internal.settings.currency);
+		$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + $.fn.productConfigurator.internal.currency);
 		var el     = $(".summary .price div:last-child"),  
 			newone = el.clone(true).addClass("price-anim");
 
