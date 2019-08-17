@@ -13,6 +13,7 @@
 				$(this).append(loadingScreen);
 			}
 			
+			
 			//init all main static elements
 			var configuratorDiv = $("<div></div>").addClass("configurator"), 
 				buyDiv = $("<div></div>").addClass("buy"), buyInnerDiv = $("<div></div>").addClass("inner"),
@@ -24,6 +25,40 @@
 				previewImageDiv = $("<div></div>").addClass("preview-image"),
 				summaryDiv = $("<div></div>").addClass("summary"),
 				buyBtn = $("<div></div>").addClass("buy-button").html("Buy");
+			
+			// additional control buttons
+			if(settings.additionalControls){
+				var additionalControlDiv = $("<div></div>").addClass("additional-controls");
+				var additionalControlOpener = $("<div></div>").addClass("additional-controls-opener controls-button").html('<div class="plus"><span></span><span></span></div>');
+				var controlZoomin = $("<div></div>").addClass("controls-zoomin controls-button").html('<div class="plus"><span></span><span></span></div>');
+				var controlZoomout = $("<div></div>").addClass("controls-zoomout controls-button").html('<div class="plus"><span></span><span></span></div>');
+				additionalControlDiv.append(additionalControlOpener).append(controlZoomin).append(controlZoomout);
+				configuratorDiv.append(additionalControlDiv);
+				
+				
+				
+				additionalControlOpener.click(function(){
+					var heightMain = $(".additional-controls-opener").css("height");
+					var heightExtend = 0;
+					$([additionalControlOpener, controlZoomin, controlZoomout]).each(function(){
+						heightExtend += $(this).height();
+					});
+					heightExtend += "px";
+					$(this).find(".plus").toggleClass("active");
+					var newHeight = $(this).parent().css("height") === heightExtend ? heightMain : heightExtend;
+					$(this).parent().animate({height: newHeight}, 200);
+				});
+				
+				var zoomStep = 3;
+				controlZoomin.click(function(){
+					zoomStep += zoomStep < 5 ? 1 : 0;
+					$(".configurator .preview .preview-image").removeClass("scaled-1 scaled-2 scaled-3 scaled-4 scaled-5").addClass("scaled-"+zoomStep);
+				});
+				controlZoomout.click(function(){
+					zoomStep -= zoomStep > 1 ? 1 : 0;
+					$(".configurator .preview .preview-image").removeClass("scaled-1 scaled-2 scaled-3 scaled-4 scaled-5").addClass("scaled-"+zoomStep);
+				});
+			}
 			
 			//mobile button
 			mobileConfigButtonDiv.click(function(){
@@ -185,7 +220,8 @@
 			"total": "Total"
 		},
 		"loading": false,
-		"loadingHtml": "<h1>Loading</h1><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div>"
+		"loadingHtml": "<h1>Loading</h1><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div>",
+		"additionalControls": true
 	};
 	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": undefined};
 	

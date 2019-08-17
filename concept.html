@@ -87,6 +87,27 @@
 					"url": "demo/img/handle/handle-blue.png"
 				}
 			}
+		},
+		"size": {
+			"name": "size",
+			"items": {
+				"size-10l": {
+					"name": "10l",
+					"price": 0.00
+				},
+				"size-20l": {
+					"name": "20l",
+					"price": 9.99
+				},
+				"size-30l": {
+					"name": "30l",
+					"price": 19.99
+				},
+				"size-40l": {
+					"name": "40l",
+					"price": 29.99
+				}
+			}
 		}
 	};
 		$(document).ready(function(){
@@ -136,7 +157,7 @@
 					price += items[i].items[val].price;
 				});
 				
-				$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price + "&euro;");
+				$(".summary .price div:last-child, .buy .inner .info .price div:last-child").html(price.toPrecision(4) + "&euro;");
 				var el     = $(".summary .price div:last-child"),  
 					 newone = el.clone(true).addClass("price-anim");
 
@@ -169,6 +190,32 @@
 				$('.configurator .settings').toggleClass("open");
 				$(this).find(".hamburg").toggleClass("active");
 			});
+			
+			
+			var heightMain = $(".additional-controls-opener").css("height");
+			var heightExtend = 0;
+			$(".additional-controls .controls-button").each(function(){
+				heightExtend += $(this).height();
+			});
+			heightExtend += "px";
+			
+			$(".additional-controls-opener").click(function(){
+				$(this).find(".plus").toggleClass("active");
+				var newHeight = $(this).parent().css("height") === heightExtend ? heightMain : heightExtend;
+				$(this).parent().animate({height: newHeight}, 300);
+			});
+			
+			var zoomStep = 3;
+			$('.controls-zoomin').click(function(){
+				zoomStep += zoomStep < 5 ? 1 : 0;
+				$(".configurator .preview .preview-image").removeClass("scaled-1 scaled-2 scaled-3 scaled-4 scaled-5").addClass("scaled-"+zoomStep);
+			});
+			$('.controls-zoomout').click(function(){
+				zoomStep -= zoomStep > 1 ? 1 : 0;
+				$(".configurator .preview .preview-image").removeClass("scaled-1 scaled-2 scaled-3 scaled-4 scaled-5").addClass("scaled-"+zoomStep);
+			});
+			
+			
 		});
 		
 	</script>
@@ -200,6 +247,12 @@
 				</p>
 			</div>
 		</div>
+	</div>
+	
+	<div class="additional-controls">
+		<div class="additional-controls-opener controls-button"><div class="plus"><span></span><span></span></div></div>
+		<div class="controls-zoomin controls-button"><div class="plus"><span></span><span></span></div></div>
+		<div class="controls-zoomout controls-button"><div class="plus"><span></span></div></div>
 	</div>
 	
 	<div class="mobile-config-button">
@@ -258,6 +311,19 @@
 					</div>
 					<div class="price">
 						10.99&euro;
+					</div>
+					<div class="enter">
+						<i class="icon ion-ios-arrow-forward"></i>
+					</div>
+				</li>
+				<li data-category="size">
+					<div class="thumbnail"></div>
+					<div class="name">
+						<div>size</div>
+						<div>10l</div>
+					</div>
+					<div class="price">
+						0.00&euro;
 					</div>
 					<div class="enter">
 						<i class="icon ion-ios-arrow-forward"></i>
@@ -375,6 +441,44 @@
 					</div>
 					<div class="price">
 						14.99&euro;
+					</div>
+				</li>
+			</ul>
+			<ul class="sub-category" id="category-size" data-cat="size">
+				<li data-item="size-10l">
+					<div class="thumbnail"></div>
+					<div class="name">
+						10l
+					</div>
+					<div class="price">
+						0.00&euro;
+					</div>
+				</li>
+				<li data-item="size-20l">
+					<div class="thumbnail"></div>
+					<div class="name">
+						20l
+					</div>
+					<div class="price">
+						9.99&euro;
+					</div>
+				</li>
+				<li data-item="size-30l">
+					<div class="thumbnail"></div>
+					<div class="name">
+						30l
+					</div>
+					<div class="price">
+						19.99&euro;
+					</div>
+				</li>
+				<li data-item="size-40l">
+					<div class="thumbnail"></div>
+					<div class="name">
+						40l
+					</div>
+					<div class="price">
+						29.99&euro;
 					</div>
 				</li>
 			</ul>

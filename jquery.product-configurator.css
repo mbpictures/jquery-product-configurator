@@ -103,6 +103,69 @@
 .active.hamburg .line:nth-child(3){
    transform: translateY(-12px) rotate(45deg);
 }
+/*PLUS*/
+.plus {
+	position: relative;
+	top:0;
+	left:0;
+	transform: rotate(0deg);
+	cursor: pointer;
+	height: 40px;
+	width: 40px;
+	transition: .4s ease;
+}
+
+.plus span {
+	width: 30px;
+	height: 4px;
+	background: #444;
+	border-radius: 2px;
+	display: block;
+	position: absolute;
+	top:18px;
+	left:5px;
+}
+.plus span:last-child {
+	transform: rotate(90deg);
+}
+.plus.active {
+	transform: rotate(45deg);
+}
+
+/*ADDITIONAL CONTROLS */
+.additional-controls {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	transition: .4s ease;
+	z-index: 1;
+}
+.additional-controls.open {
+	overflow: visible;
+}
+.additional-controls-opener {
+	border-bottom: 1px solid #666;
+}
+.additional-controls .controls-button {
+	position: relative;
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	transition: .4s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #FBFBFB;
+}
+.additional-controls .controls-button:hover {
+	background-color: rgb(210,210,210)!important;
+}
+
+.additional-controls .controls-zoomout span {
+	transform: none!important;
+}
+
 
 
 body, html {
@@ -236,6 +299,22 @@ body, html {
 	display: grid;
 	max-width: 100%;
 	max-height: 100%;
+	transition: .4s ease;
+}
+.configurator > .preview .preview-image.scaled-1 {
+	transform: translate(-50%, -50%) scale(0.6);
+}
+.configurator > .preview .preview-image.scaled-2 {
+	transform: translate(-50%, -50%) scale(0.8);
+}
+.configurator > .preview .preview-image.scaled-3 {
+	transform: translate(-50%, -50%) scale(1);
+}
+.configurator > .preview .preview-image.scaled-4 {
+	transform: translate(-50%, -50%) scale(1.2);
+}
+.configurator > .preview .preview-image.scaled-5 {
+	transform: translate(-50%, -50%) scale(1.4);
 }
 .configurator > .preview .preview-image img {
 	grid-column: 1;
@@ -255,6 +334,7 @@ body, html {
 	-moz-box-shadow: -3px 0px 29px 6px rgba(0,0,0,0.35);
 	box-shadow: -3px 0px 29px 6px rgba(0,0,0,0.35);
 	font-family: sans-serif;
+	z-index: 5;
 }
 
 
