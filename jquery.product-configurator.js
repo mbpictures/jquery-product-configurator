@@ -29,7 +29,7 @@
 				previewImageDiv = $("<div></div>").addClass("preview-image"),
 				summaryDiv = $("<div></div>").addClass("summary"),
 				buyBtn = $("<div></div>").addClass("buy-button").html("Buy"),
-				credits = $("<div></div>").addClass("credits").html("jQuery Plugin developed by Marius Butz &copy; 2019").appendTo(previewDiv),
+				credits = $("<div></div>").addClass("credits").html("jQuery Plugin developed by Marius Butz &copy; 2019"),
 				additionalControlDiv, additionalControlOpener, controlZoomin, controlZoomout;
 			
 			// additional control buttons
@@ -193,6 +193,7 @@
 			categoriesDiv.append(mainCategoryList);
 			settingsDiv.append(categoriesDiv).append(summaryDiv);
 			
+			previewDiv.append(credits);
 			buyInnerDiv.append(secondPreviewDiv).append(buyInfoDiv);
 			buyDiv.append(buyInnerDiv);
 			
