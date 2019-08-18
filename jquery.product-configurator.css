@@ -183,6 +183,13 @@
 	font-family: sans-serif;
 	text-align: center;
 }
+.configurator .credits a {
+	color: #5767E5;
+	text-decoration: none;
+}
+.configurator .credits a:hover {
+	text-decoration: underline;
+}
 .configurator .mobile-config-button {
 	position: absolute;
 	right: 0;

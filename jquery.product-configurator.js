@@ -29,7 +29,7 @@
 				previewImageDiv = $("<div></div>").addClass("preview-image"),
 				summaryDiv = $("<div></div>").addClass("summary"),
 				buyBtn = $("<div></div>").addClass("buy-button").html("Buy"),
-				credits = $("<div></div>").addClass("credits").html("jQuery Plugin developed by Marius Butz &copy; 2019"),
+				credits = $("<div></div>").addClass("credits").html("jQuery Plugin developed by <a href='http://marius-butz.de' target='_blank'>Marius Butz</a> &copy; 2019"),
 				additionalControlDiv, additionalControlOpener, controlZoomin, controlZoomout;
 			
 			// additional control buttons
