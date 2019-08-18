@@ -6,6 +6,10 @@
 		
 		$.fn.productConfigurator.internal.currency = settings.currency;
 		
+		$(window).resize(function (){
+			$.fn.productConfigurator.resize();
+		});
+		
 		return this.each(function() {
 			// loading screen! at first, so it gets displayed before the other stuff loads
 			if(settings.loading){
@@ -24,28 +28,29 @@
 				mainCategoryList = $("<ul></ul>").addClass("main-category"),
 				previewImageDiv = $("<div></div>").addClass("preview-image"),
 				summaryDiv = $("<div></div>").addClass("summary"),
-				buyBtn = $("<div></div>").addClass("buy-button").html("Buy");
+				buyBtn = $("<div></div>").addClass("buy-button").html("Buy"),
+				credits = $("<div></div>").addClass("credits").html("jQuery Plugin developed by Marius Butz &copy; 2019").appendTo(previewDiv),
+				additionalControlDiv, additionalControlOpener, controlZoomin, controlZoomout;
 			
 			// additional control buttons
 			if(settings.additionalControls){
-				var additionalControlDiv = $("<div></div>").addClass("additional-controls");
-				var additionalControlOpener = $("<div></div>").addClass("additional-controls-opener controls-button").html('<div class="plus"><span></span><span></span></div>');
-				var controlZoomin = $("<div></div>").addClass("controls-zoomin controls-button").html('<div class="plus"><span></span><span></span></div>');
-				var controlZoomout = $("<div></div>").addClass("controls-zoomout controls-button").html('<div class="plus"><span></span><span></span></div>');
+				additionalControlDiv = $("<div></div>").addClass("additional-controls");
+				additionalControlOpener = $("<div></div>").addClass("additional-controls-opener controls-button").html('<div class="plus"><span></span><span></span></div>');
+				controlZoomin = $("<div></div>").addClass("controls-zoomin controls-button").html('<div class="plus"><span></span><span></span></div>');
+				controlZoomout = $("<div></div>").addClass("controls-zoomout controls-button").html('<div class="plus"><span></span><span></span></div>');
 				additionalControlDiv.append(additionalControlOpener).append(controlZoomin).append(controlZoomout);
 				configuratorDiv.append(additionalControlDiv);
 				
 				
 				
 				additionalControlOpener.click(function(){
-					var heightMain = $(".additional-controls-opener").css("height");
+					var heightMain = $(".additional-controls-opener").height();
 					var heightExtend = 0;
 					$([additionalControlOpener, controlZoomin, controlZoomout]).each(function(){
 						heightExtend += $(this).height();
 					});
-					heightExtend += "px";
 					$(this).find(".plus").toggleClass("active");
-					var newHeight = $(this).parent().css("height") === heightExtend ? heightMain : heightExtend;
+					var newHeight = Math.floor($(this).parent().height()) === Math.floor(heightExtend) ? heightMain+"px" : heightExtend+"px";
 					$(this).parent().animate({height: newHeight}, 200);
 				});
 				
@@ -118,7 +123,7 @@
 				
 				jQuery.each(value.items, function(index2, value2){
 					if(value2.default){ defaultItem.val = value2; defaultItem.index = index2; } //assign default item of category
-					var subCategoryEntry = $("<li></li>").attr("data-item", value2.name);
+					var subCategoryEntry = $("<li></li>").attr("data-item", value2.name).addClass(value2.default ? "active" : "");
 					subCategoryEntry.empty().html('<div class="thumbnail"></div>'+
 							'<div class="name">'+
 								value2.name+
@@ -143,6 +148,9 @@
 						$.fn.productConfigurator.internal.currentSelection[index] = index2;
 						$(".summary .price div:last-child").removeClass("price-anim");
 						$.fn.productConfigurator.updateTotalPrice(settings.categories);
+						
+						$(this).parent().find("li").removeClass("active");
+						$(this).addClass("active");
 					});
 				});
 				
@@ -192,18 +200,15 @@
 			
 			$(this).append(configuratorDiv);
 			
-			backDiv.css("width", backDiv.css("height"));
-			mobileConfigButtonDiv.css({
-				width: backDiv.css("height"),
-				height: backDiv.css("height")
-			});
-			
-			if(settings.loading){
-				loadingScreen.fadeOut(400);
-			}
+			// resize all necessary responsive stuff
+			$.fn.productConfigurator.resize();
 			
 			$.fn.productConfigurator.internal.categories = settings.categories;
 			$.fn.productConfigurator.updateTotalPrice();
+			
+			if(settings.loading){
+				loadingScreen.fadeOut(300);
+			}
 		});
  
     };
@@ -246,5 +251,25 @@
 		el.before(newone);
 
 		el.remove();
+	};
+	$.fn.productConfigurator.resize = function (){
+		var size = $('.configurator .settings .name .back').css("height");
+		console.log(size);
+		$('.width-as-height').each(function(){
+			$(this).css("width", $(this).css("height"));
+		});
+		$('.mobile-config-button').css({
+			width: size,
+			height: size
+		});
+		$(".additional-controls .controls-button, .additional-controls").each(function(){
+			$(this).css({
+				width: size,
+				height: size
+			});
+		});
+		
+		var categoriesHeight = $(".settings").height() - ($(".settings .name").outerHeight() + $(".settings .summary").height());
+		$(".settings .categories").css("height", categoriesHeight + "px");
 	};
 }( jQuery ));

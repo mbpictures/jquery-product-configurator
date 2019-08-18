@@ -166,14 +166,7 @@
 	transform: none!important;
 }
 
-
-
-body, html {
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-}
+/* CONFIGURATOR */
 .configurator {
 	width: 100%;
 	height: 100%;
@@ -181,7 +174,15 @@ body, html {
 	display: flex;
 	position: relative;
 }
-
+.configurator .credits {
+	position: absolute;
+	bottom: 5px;
+	left: 50%;
+	transform: translateX(-50%);
+	color:555;
+	font-family: sans-serif;
+	text-align: center;
+}
 .configurator .mobile-config-button {
 	position: absolute;
 	right: 0;
@@ -387,6 +388,9 @@ body, html {
 .configurator .settings .categories .sub-category {
 	left: 100%;
 }
+.configurator .settings .categories .sub-category li.active {
+	background-color: #AAA;
+}
 .configurator .settings .categories ul li {
 	width: 100%;
 	min-height: 100px;
@@ -496,5 +500,6 @@ body, html {
 	}
 	.configurator .buy .inner {
 		width: 100%;
+		height: 75%;
 	}
 }
