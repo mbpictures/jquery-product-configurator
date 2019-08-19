@@ -5,7 +5,7 @@
 		var settings = $.extend( {}, $.fn.productConfigurator.defaults, options );
 		
 		$.fn.productConfigurator.internal.currency = settings.currency;
-		
+		//register resize event
 		$(window).resize(function (){
 			$.fn.productConfigurator.resize();
 		});
@@ -36,13 +36,14 @@
 			if(settings.additionalControls){
 				additionalControlDiv = $("<div></div>").addClass("additional-controls");
 				additionalControlOpener = $("<div></div>").addClass("additional-controls-opener controls-button").html('<div class="plus"><span></span><span></span></div>');
+				// zoom-in and out buttons
 				controlZoomin = $("<div></div>").addClass("controls-zoomin controls-button").html('<div class="plus"><span></span><span></span></div>');
 				controlZoomout = $("<div></div>").addClass("controls-zoomout controls-button").html('<div class="plus"><span></span><span></span></div>');
 				additionalControlDiv.append(additionalControlOpener).append(controlZoomin).append(controlZoomout);
 				configuratorDiv.append(additionalControlDiv);
 				
 				
-				
+				// event to open/close the additional control buttons
 				additionalControlOpener.click(function(){
 					var heightMain = $(".additional-controls-opener").height();
 					var heightExtend = 0;
@@ -53,7 +54,7 @@
 					var newHeight = Math.floor($(this).parent().height()) === Math.floor(heightExtend) ? heightMain+"px" : heightExtend+"px";
 					$(this).parent().animate({height: newHeight}, 200);
 				});
-				
+				// events for zoom-in and out
 				var zoomStep = 3;
 				controlZoomin.click(function(){
 					zoomStep += zoomStep < 5 ? 1 : 0;
@@ -77,12 +78,13 @@
 			
 			nameDiv.append(backDiv).append(settings.name);
 			settingsDiv.append(nameDiv);
+			//Back to main categories screen
 			backDiv.click(function (){
 				if($(this).css("opacity") == 0) return;
 				$('#category-'+$.fn.productConfigurator.internal.openedSub).animate({left: $('.main-category').parent().width() + "px"}, 300, function (){
 					$('.main-category').css("left", "-" + $('.main-category').parent().width() + "px").animate({left: "0"}, 300);
 					$('.settings .back').animate({opacity: "0"}, 300).css("cursor", "auto");
-					$.fn.productConfigurator.internal.openedSub = "none";
+					$.fn.productConfigurator.internal.openedSub = undefined;
 				});
 			});
 			
@@ -109,18 +111,20 @@
 			buyDeclineBtn.click(function(){
 				$('.buy').fadeOut(500);
 			});
+			// user clicks outside of the buy dialog
 			buyDiv.click(function(e){
 				if(e.target.getAttribute("class") === "buy"){
 					$(this).fadeOut(500);
 				}
 			});
 			
-			
+			// generate main and sub category entries
 			jQuery.each(settings.categories, function(index, value){
 				var mainCategoryEntry = $("<li></li>").attr("data-category", value.name);
 				var defaultItem = {};
 				var subCategoryList = $("<ul></ul>").addClass("sub-category").attr("id", "category-"+value.name);
 				
+				// sub categories
 				jQuery.each(value.items, function(index2, value2){
 					if(value2.default){ defaultItem.val = value2; defaultItem.index = index2; } //assign default item of category
 					var subCategoryEntry = $("<li></li>").attr("data-item", value2.name).addClass(value2.default ? "active" : "");
@@ -183,11 +187,13 @@
 					});
 				});
 				
+				// initialize currentSelection object with the default items
 				$.fn.productConfigurator.internal.currentSelection[index] = defaultItem.index;
 			
 				mainCategoryList.append(mainCategoryEntry);
 				categoriesDiv.append(subCategoryList);
 			});
+			// put all together
 			previewDiv.append(previewImageDiv);
 			var secondPreviewDiv = previewDiv.clone();
 			categoriesDiv.append(mainCategoryList);
@@ -203,10 +209,11 @@
 			
 			// resize all necessary responsive stuff
 			$.fn.productConfigurator.resize();
-			
+			// initialize categories and finally write the price for the default items
 			$.fn.productConfigurator.internal.categories = settings.categories;
 			$.fn.productConfigurator.updateTotalPrice();
 			
+			// fade out loading screen, after everything has been generated
 			if(settings.loading){
 				loadingScreen.fadeOut(300);
 			}
@@ -214,6 +221,7 @@
  
     };
 	
+	// plugin default settings
 	$.fn.productConfigurator.defaults = {
 		"name": undefined,
 		"buyDestinationUrl": undefined,
@@ -229,8 +237,9 @@
 		"loadingHtml": "<h1>Loading</h1><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div>",
 		"additionalControls": true
 	};
-	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": undefined};
+	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": "&euro;"};
 	
+	// send data (json object) via post to location
 	$.fn.productConfigurator.redirectPost = function(location, data){
         var form = '';
         $.each(data, function( key, value ) {
@@ -238,7 +247,7 @@
         });
         $('<form action="'+location+'" method="POST">'+form+'</form>').appendTo('body').submit();
 	};
-	
+	// update the total price, called when the customers changes an item
 	$.fn.productConfigurator.updateTotalPrice = function (){
 		var price = 0;
 		jQuery.each($.fn.productConfigurator.internal.currentSelection, function(i, val){
@@ -253,9 +262,9 @@
 
 		el.remove();
 	};
+	// resize responsive but not css scaled elements
 	$.fn.productConfigurator.resize = function (){
 		var size = $('.configurator .settings .name .back').css("height");
-		console.log(size);
 		$('.width-as-height').each(function(){
 			$(this).css("width", $(this).css("height"));
 		});
