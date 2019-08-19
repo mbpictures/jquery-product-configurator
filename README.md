@@ -77,7 +77,25 @@ Example for a possible item:
 * ```$.fn.productConfigurator.updateTotalPrice()```: method to update the total price in the summary and the buy dialog. Usually called when the customer changes an item
 * ```$.fn.productConfigurator.resize()```: method to resize all responsive and not css sizeable elements. Usually called when the page renders for the first time or gets resized.
 
-## credentials
+## tips
+To avoid horizontal scrolling on iOS, add this CSS snippet to your html file:
+```CSS
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+}
+```
+
+## TODO
+1. Thumbnails for items (so you can demonstrate the differences between each item better)
+2. Loading screen disappears not until all images has been loaded
+3. "Buffer" mode: all images will be loaded first, so the latency between changing an item and getting feedback will be a minimum
+
+## attribution
 You have the credit me on your main page and you aren't allowed to remove the footer in the plugin. Thanks for your appreciation.
 
 ## contribution
