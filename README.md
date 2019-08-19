@@ -68,6 +68,14 @@ Example for a possible item:
 	]
 }
 ```
+## plugin values and functions
+* ```$.fn.productConfigurator.internal.openedSub``` (```undefined```): opened submenu by the user
+* ```$.fn.productConfigurator.internal.currentSelection``` (```{}```): the current constellation of the product configuration
+* ```$.fn.productConfigurator.internal.categories``` (```{}```): copy of the categories array you provided in the options
+* ```$.fn.productConfigurator.internal.currency``` (```&euro;```): copy of the string you provided in the options
+* ```$.fn.productConfigurator.redirectPost(location, data)```: method to send ```data``` (json object) via post to ```location```
+* ```$.fn.productConfigurator.updateTotalPrice()```: method to update the total price in the summary and the buy dialog. Usually called when the customer changes an item
+* ```$.fn.productConfigurator.resize()```: method to resize all responsive and not css sizeable elements. Usually called when the page renders for the first time or gets resized.
 
 ## credentials
 You have the credit me on your main page and you aren't allowed to remove the footer in the plugin. Thanks for your appreciation.
