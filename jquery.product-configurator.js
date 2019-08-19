@@ -1,3 +1,11 @@
+/*
+ * jQuery product configurator
+ * https://github.com/mbpictures/jquery-product-configurator
+ *
+ * Copyright © 2019 Marius Butz <contact@marius-butz.de>
+ * Licensed under MIT License
+ */
+
 (function( $ ) {
  	"use strict";
     $.fn.productConfigurator = function(options) {
