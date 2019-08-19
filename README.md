@@ -37,6 +37,7 @@ An array of JSON objects. Each object with the following keys:
   * ```price```: the price of the product (float)
   * ```image```: the image to update the preview and the thumbnail of the category
   * ```default```: is this item the default item when the page loads
+
 If you want categories without changing preview or images overall (e.g. for the shoe size) don't define the ```thumbnail``` and ```image``` keys.
 
 Example for a possible item:
