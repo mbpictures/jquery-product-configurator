@@ -36,37 +36,41 @@ An array of JSON objects. Each object with the following keys:
   * ```name```: the name of the item (e.g. the color)
   * ```price```: the price of the product (float)
   * ```image```: the image to update the preview and the thumbnail of the category
-  * ```default```: is this item the default item when the page loads
+  * ```thumbnail``` (optional): optional thumbnail which will be displayed in the selection area
+  * ```default```: is this item the default item when the page loads (only define one item as default per category!)
 
 If you want categories without changing preview or images overall (e.g. for the shoe size) don't define the ```thumbnail``` and ```image``` keys.
 
 Example for a possible item:
 ```JSON
 {
-  "name": "case",
-  "thumbnail": "img/thumbnail-case.png",
+	"name": "case",
+	"thumbnail": "img/thumbnail-case.png",
 	"items": [{
-      "name": "default",
-			"price": 10.99,
-			"image": "img/thumbnail-case.png",
-      "default": true
-		},
-		{
-		  "name": "red",
-			"price": 14.99,
-			"image": "img/case/case-red.png"
-		},
-		{
-			"name": "green",
-			"price": 14.99,
-			"image": "img/case/case-green.png"
-		},
-		{
-			"name": "blue",
-			"price": 14.99,
-			"image": "img/case/case-blue.png"
-		}
-	]
+		"name": "default",
+		"price": 10.99,
+		"image": "img/thumbnail-case.png",
+		"thumbnail": "img/thumbnails/default.png",
+		"default": true
+	},
+	{
+		"name": "red",
+		"price": 14.99,
+		"image": "img/case/case-red.png",
+		"thumbnail": "img/thumbnails/red.png"
+	},
+	{
+		"name": "green",
+		"price": 14.99,
+		"image": "img/case/case-green.png",
+		"thumbnail": "img/thumbnails/green.png"
+	},
+	{
+		"name": "blue",
+		"price": 14.99,
+		"image": "img/case/case-blue.png",
+		"thumbnail": "img/thumbnails/blue.png"
+	}]
 }
 ```
 ## plugin values and functions
@@ -92,7 +96,7 @@ html, body {
 ```
 
 ## TODO
-1. Thumbnails for items (so you can demonstrate the differences between each item better)
+// 1. Thumbnails for items (so you can demonstrate the differences between each item better) **DONE**
 2. Loading screen disappears not until all images has been loaded
 3. "Buffer" mode: all images will be loaded first, so the latency between changing an item and getting feedback will be a minimum
 4. Define the position for each preview image separately. This ensures that you only have to export the relevant parts of each image

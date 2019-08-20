@@ -144,7 +144,8 @@
 								value2.price+settings.currency+
 							'</div>');
 					
-					var subImg = value2.image !== undefined ? $("<img>").attr("src", value2.image) : "";
+					var thumbnailUrl = value2.image !== undefined ? (value2.thumbnail !== undefined ? value2.thumbnail : value2.image) : "";
+					var subImg = thumbnailUrl !== "" ? $("<img>").attr("src", thumbnailUrl) : "";
 					subCategoryEntry.find(".thumbnail").append(subImg);
 					
 					subCategoryList.append(subCategoryEntry);
@@ -153,7 +154,7 @@
 						$('.preview-' + value.name).attr("src", value2.image);
 						$('.main-category li').each(function () {
 							if($(this).data("category") !== value.name){ return; }
-							$(this).find("img").attr("src", value2.image);
+							$(this).find("img").attr("src", thumbnailUrl);
 							$(this).find(".name div:last-child").html(value2.name);
 							$(this).find(".price").html(value2.price + settings.currency);
 						});
@@ -178,7 +179,7 @@
 						'<i class="icon ion-ios-arrow-forward"></i>'+
 					'</div>'); //build list item for main-category list
 				
-				var mainImg = defaultItem.val.image !== undefined ? $("<img>").attr("src", defaultItem.val.image) : "";
+				var mainImg = defaultItem.val.image !== undefined ? (defaultItem.val.thumbnail !== undefined ? $("<img>").attr("src", defaultItem.val.thumbnail) : $("<img>").attr("src", defaultItem.val.image)) : "";
 				mainCategoryEntry.find(".thumbnail").append(mainImg); 
 				
 				// build preview image
