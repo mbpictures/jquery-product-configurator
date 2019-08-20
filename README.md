@@ -96,7 +96,7 @@ html, body {
 ```
 
 ## TODO
-// 1. Thumbnails for items (so you can demonstrate the differences between each item better) **DONE**
+1. Thumbnails for items (so you can demonstrate the differences between each item better) **DONE**
 2. Loading screen disappears not until all images has been loaded
 3. "Buffer" mode: all images will be loaded first, so the latency between changing an item and getting feedback will be a minimum
 4. Define the position for each preview image separately. This ensures that you only have to export the relevant parts of each image
