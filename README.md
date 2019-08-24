@@ -15,6 +15,9 @@ All the html will generated automatically by the plugin. The plugin is concepted
 * buyDestinationUrl (```undefined```): destination file where the results of the configuration should be sent to (when the user clicks on buy)
 * currency (```€```): the currency of your prices. you should use the html strings, instead of ```€``` you would write ```&euro;```
 * categories (```[]```): this is a array of JSON objects which describes the item parts of your product, further information at the [categories](#categories) part
+* buffer (```true```): with this option you can control if all images should be loaded when the page gets loaded. The delay after the page has been loaded and the user changes items will be a minimum
+  * ```true```: buffering enabled
+  * ```false```: buffering disabled
 * loading (```false```): should a loading screen be displayed until the html has been rendered?
   * ```true```: loading screen
   * ```false```: no loading screen
@@ -97,8 +100,8 @@ html, body {
 
 ## TODO
 1. Thumbnails for items (so you can demonstrate the differences between each item better) **DONE**
-2. Loading screen disappears not until all images has been loaded
-3. "Buffer" mode: all images will be loaded first, so the latency between changing an item and getting feedback will be a minimum
+2. Loading screen disappears not until all images has been loaded **DONE**
+3. "Buffer" mode: all images will be loaded first, so the latency between changing an item and getting feedback will be a minimum **DONE**
 4. Define the position for each preview image separately. This ensures that you only have to export the relevant parts of each image
 
 ## attribution

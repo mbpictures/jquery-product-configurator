@@ -25,6 +25,14 @@
 				$(this).append(loadingScreen);
 			}
 			
+			var overallImages = 0;
+			jQuery.each(settings.categories, function(i, val){
+				jQuery.each(val.items, function (i2, val2){
+					overallImages += val2.image !== undefined ? 1 : 0;
+				});
+			});
+			$.fn.productConfigurator.internal.images.overall = overallImages;
+			
 			
 			//init all main static elements
 			var configuratorDiv = $("<div></div>").addClass("configurator"), 
@@ -134,6 +142,8 @@
 				
 				// sub categories
 				jQuery.each(value.items, function(index2, value2){
+					if(settings.buffer && value2.image !== undefined) $("<img>").attr("src", value2.image).on("load", imgLoaded(loadingScreen));
+					
 					if(value2.default){ defaultItem.val = value2; defaultItem.index = index2; } //assign default item of category
 					var subCategoryEntry = $("<li></li>").attr("data-item", value2.name).addClass(value2.default ? "active" : "");
 					subCategoryEntry.empty().html('<div class="thumbnail"></div>'+
@@ -147,6 +157,7 @@
 					var thumbnailUrl = value2.image !== undefined ? (value2.thumbnail !== undefined ? value2.thumbnail : value2.image) : "";
 					var subImg = thumbnailUrl !== "" ? $("<img>").attr("src", thumbnailUrl) : "";
 					subCategoryEntry.find(".thumbnail").append(subImg);
+					
 					
 					subCategoryList.append(subCategoryEntry);
 					
@@ -183,7 +194,9 @@
 				mainCategoryEntry.find(".thumbnail").append(mainImg); 
 				
 				// build preview image
-				if(defaultItem.val.image !== undefined) $(previewImageDiv).append("<img src='"+defaultItem.val.image+"' class='preview-"+value.name+"'>");
+				if(defaultItem.val.image !== undefined) {
+					$(previewImageDiv).append(defaultItem.val.image !== undefined ? $("<img>").attr("src", defaultItem.val.image).addClass("preview-" + value.name) : "");
+				}
 				
 				
 				//eventHandler for mainCategory
@@ -223,12 +236,17 @@
 			$.fn.productConfigurator.updateTotalPrice();
 			
 			// fade out loading screen, after everything has been generated
-			if(settings.loading){
+			if(settings.loading && !settings.buffer){
 				loadingScreen.fadeOut(300);
 			}
 		});
  
     };
+	
+	function imgLoaded(loadingScreen) {
+		$.fn.productConfigurator.internal.images.loaded += 1;
+		if($.fn.productConfigurator.internal.images.loaded >= $.fn.productConfigurator.internal.images.overall) loadingScreen.fadeOut(300);
+	}
 	
 	// plugin default settings
 	$.fn.productConfigurator.defaults = {
@@ -236,6 +254,7 @@
 		"buyDestinationUrl": undefined,
 		"currency": "&euro;",
 		"categories": [],
+		"buffer": true,
 		"localization": {
 			"buy": "Buy",
 			"decline": "Not now",
@@ -246,7 +265,7 @@
 		"loadingHtml": "<h1>Loading</h1><div class='lds-ellipsis'><div></div><div></div><div></div><div></div></div>",
 		"additionalControls": true
 	};
-	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": "&euro;"};
+	$.fn.productConfigurator.internal = {"openedSub": undefined, "currentSelection": {}, "categories": undefined, "currency": "&euro;", "images": {loaded: 0, overall: 0}};
 	
 	// send data (json object) via post to location
 	$.fn.productConfigurator.redirectPost = function(location, data){
