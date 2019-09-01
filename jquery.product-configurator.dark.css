@@ -1,0 +1,92 @@
+@import "https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css";
+/* LOADING */
+.loading.dark {
+	background-color: #333;
+	color:#AAA;
+}
+
+.loading.dark .lds-ellipsis div {
+  background: #AAA;
+}
+
+.configurator.dark .hamburg .line {
+   background: #AAA;
+}
+
+.configurator.dark .plus span {
+	background: #AAA;
+}
+
+.configurator.dark .additional-controls-opener {
+	border-bottom: 1px solid #CCC;
+}
+.configurator.dark .additional-controls .controls-button {
+	background-color: #555;
+}
+.configurator.dark .additional-controls .controls-button:hover {
+	background-color: #444!important;
+}
+
+/* CONFIGURATOR */
+.configurator.dark {
+	background-color: #333;
+}
+.configurator.dark .credits {
+	color: #AAA;
+}
+.configurator.dark .mobile-config-button {
+	background-color: #555;
+}
+.configurator.dark .mobile-config-button:hover {
+	background-color: #444;
+}
+.configurator.dark .buy {
+	background-color:rgba(0,0,0, 0.7);
+}
+.configurator.dark .buy .inner{
+	background-color:#666;
+	color: #AAA;
+}
+
+.configurator.dark .buy .inner .info .buy-check div {
+	background-color: #555;
+	color: #AAA;
+}
+.configurator.dark .buy .inner .info .buy-check div:hover {
+	background-color: #444;
+}
+.configurator.dark .settings {
+	background-color: #333;
+}
+
+.configurator.dark .settings > .name {
+	color: #AAA;
+}
+.configurator.dark .settings > .name > .back {
+	background-color: #555;
+	color: #AAA;
+}
+.configurator.dark .settings > .name > .back:hover {
+	background-color: #444;
+}
+.configurator.dark .settings .categories .sub-category li.active {
+	background-color: #666;
+}
+.configurator.dark .settings .categories ul li {
+	background-color: #555;
+	color: #AAA;
+}
+.configurator.dark .settings .categories ul li:hover {
+	background-color: #444;
+}
+.configurator.dark .settings .summary {
+	background-color: #555;
+	color:#AAA;
+}
+.configurator.dark .settings .summary .buy-button {
+	background-color: #444;
+	color: #AAA;
+}
+.configurator.dark .settings .summary .buy-button:hover {
+	background-color: #333;
+}

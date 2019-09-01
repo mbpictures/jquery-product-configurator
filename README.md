@@ -12,6 +12,7 @@ All the html will generated automatically by the plugin. The plugin is concepted
 
 ## options
 * name (default: ```undefined```): the name of the product
+* theme (```undefined```): predefined/custom theme. Out of the box available: light (default) and dark
 * buyDestinationUrl (```undefined```): destination file where the results of the configuration should be sent to (when the user clicks on buy)
 * currency (```€```): the currency of your prices. you should use the html strings, instead of ```€``` you would write ```&euro;```
 * categories (```[]```): this is a array of JSON objects which describes the item parts of your product, further information at the [categories](#categories) part

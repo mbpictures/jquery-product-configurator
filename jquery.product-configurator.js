@@ -19,9 +19,10 @@
 		});
 		
 		return this.each(function() {
+			var themeClass = settings.theme !== undefined ? " " + settings.theme : "";
 			// loading screen! at first, so it gets displayed before the other stuff loads
 			if(settings.loading){
-				var loadingScreen = $("<div></div>").addClass("loading").html(settings.loadingHtml);
+				var loadingScreen = $("<div></div>").addClass("loading" + themeClass).html(settings.loadingHtml);
 				$(this).append(loadingScreen);
 			}
 			
@@ -35,7 +36,7 @@
 			
 			
 			//init all main static elements
-			var configuratorDiv = $("<div></div>").addClass("configurator"), 
+			var configuratorDiv = $("<div></div>").addClass("configurator" + themeClass), 
 				buyDiv = $("<div></div>").addClass("buy"), buyInnerDiv = $("<div></div>").addClass("inner"),
 				mobileConfigButtonDiv = $("<div></div>").addClass("mobile-config-button").html('<div class="hamburg"><span class="line"></span><span class="line"></span><span class="line"></span></div>'),
 				previewDiv = $("<div></div>").addClass("preview"),
@@ -251,6 +252,7 @@
 	// plugin default settings
 	$.fn.productConfigurator.defaults = {
 		"name": undefined,
+		"theme": undefined,
 		"buyDestinationUrl": undefined,
 		"currency": "&euro;",
 		"categories": [],
