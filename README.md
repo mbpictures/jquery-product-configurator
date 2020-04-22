@@ -1,6 +1,8 @@
 # jquery-product-configurator
-With this project you can add a simple, lightweight and responsive product configurator to your online shop. It allows customers to combine a product
-of several predefined parts. [Live Demo](http://projects.marius-butz.de/product-configurator)
+With this project you can add a simple, lightweight and responsive product configurator to your online shop. It allows customers to combine a product of several predefined parts.
+
+## online demo
+You can find a working demo of the plugin [here](http://projects.marius-butz.de/product-configurator).
 
 ## usage
 The only thing you need to do is to include the ```jquery.product-configure.css``` and ```jquery.product-configure.js``` in your html file.
