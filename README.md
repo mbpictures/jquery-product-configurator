@@ -106,7 +106,7 @@ html, body {
 4. Define the position for each preview image separately. This ensures that you only have to export the relevant parts of each image
 
 ## attribution
-You have the credit me on your main page and you aren't allowed to remove the footer in the plugin. Thanks for your appreciation.
+You have to credit me on your main page and you aren't allowed to remove the footer in the plugin. Thanks for your appreciation.
 
 ## contribution
 Feel free to report bugs or create pull requests.
