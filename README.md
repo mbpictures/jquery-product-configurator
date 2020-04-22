@@ -16,9 +16,9 @@ All the html will generated automatically by the plugin. The plugin is concepted
 * name (default: ```undefined```): the name of the product
 * theme (```undefined```): predefined/custom theme. Out of the box available: light (default) and dark
 * buyDestinationUrl (```undefined```): destination file where the results of the configuration should be sent to (when the user clicks on buy)
-* currency (```€```): the currency of your prices. you should use the html strings, instead of ```€``` you would write ```&euro;```
-* categories (```[]```): this is a array of JSON objects which describes the item parts of your product, further information at the [categories](#categories) part
-* buffer (```true```): with this option you can control if all images should be loaded when the page gets loaded. The delay after the page has been loaded and the user changes items will be a minimum
+* currency (```€```): the currency of your prices. You should use the html strings, instead of ```€``` you would write ```&euro;```
+* categories (```[]```): this is a array of JSON objects which describe the item parts of your product, further information at the [categories](#categories) part
+* buffer (```true```): with this option you can control if all images should be loaded when the page gets requested. The delay after the page refreshes and the user changes items will be a minimum
   * ```true```: buffering enabled
   * ```false```: buffering disabled
 * loading (```false```): should a loading screen be displayed until the html has been rendered?
@@ -36,14 +36,14 @@ All the html will generated automatically by the plugin. The plugin is concepted
   
 ## categories
 An array of JSON objects. Each object with the following keys:
-* ```name```: the name of the category (the part of the product)
-* ```thumbnail```: thumbnail of the category (only displayed, when the user didn't choose an other item)
-* ```items```: an array of JSON objects. Each object with the following keys
-  * ```name```: the name of the item (e.g. the color)
-  * ```price```: the price of the product (float)
-  * ```image```: the image to update the preview and the thumbnail of the category
-  * ```thumbnail``` (optional): optional thumbnail which will be displayed in the selection area
-  * ```default```: is this item the default item when the page loads (only define one item as default per category!)
+* ```name```: The name of the category (the part of the product).
+* ```thumbnail```: Thumbnail of the category (only displayed, when the user didn't choose an other item).
+* ```items```: An array of JSON objects. Each object with the following keys.
+  * ```name```: The name of the item (e.g. the color).
+  * ```price```: The price of the product (float).
+  * ```image```: The image to update the preview and the thumbnail of the category (relative URL).
+  * ```thumbnail``` (optional): Optional thumbnail which will be displayed in the selection area.
+  * ```default```: Is this item the default item when the page loads (only define one item as default per category!)?
 
 If you want categories without changing preview or images overall (e.g. for the shoe size) don't define the ```thumbnail``` and ```image``` keys.
 
