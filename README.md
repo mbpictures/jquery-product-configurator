@@ -1,4 +1,6 @@
 # jquery-product-configurator
+[![DeepScan grade](https://deepscan.io/api/teams/10967/projects/13906/branches/246159/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10967&pid=13906&bid=246159)
+
 With this project you can add a simple, lightweight and responsive product configurator to your online shop. It allows customers to combine a product of several predefined parts.
 
 ## online demo
